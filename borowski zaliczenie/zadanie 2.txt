@@ -1,0 +1,7 @@
+SELECT 
+    c.contactFirstName, c.contactLastName, COUNT(*) orders
+FROM
+    customers c
+        JOIN
+    payments p ON c.customerNumber = p.customerNumber
+GROUP BY c.contactFirstName , c.contactLastName

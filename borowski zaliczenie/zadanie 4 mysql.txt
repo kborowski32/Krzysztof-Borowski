@@ -1,0 +1,44 @@
+zadanie 4
+
+a)
+
+SELECT 
+    productName,
+    SUM(quantityOrdered * priceEach) ilosc,
+    YEAR(orderDate) rok
+FROM
+    orderdetails o
+        JOIN
+    products p ON o.productCode = p.productCode
+        JOIN
+    orders oo ON o.orderNumber = oo.orderNumber
+WHERE
+    productName = '1968 Ford Mustang'
+        OR productName = '1952 Alpine Renault 1300'
+        OR productName = '1996 Moto Guzzi 1100i'
+GROUP BY productName , rok
+
+b)
+
+SELECT 
+    productName, sum(quantityOrdered*priceEach)suma, YEAR(orderdate) rok,month(orderDate)miesiac
+FROM
+    products p
+        JOIN
+    orderdetails o ON p.productCode = o.productCode
+        JOIN
+    orders oo ON oo.orderNumber = o.orderNumber
+WHERE
+    productname  LIKE "%harley%"
+GROUP BY productName , rok,miesiac
+ 
+c)
+
+SELECT 
+    pl.productLine, COUNT(prod.productCode)
+FROM
+    productlines pl
+        INNER JOIN
+    products prod ON pl.productLine = prod.productLine
+GROUP BY 1
+HAVING COUNT(prod.productCode) BETWEEN 6 AND 10
